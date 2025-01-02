@@ -60,17 +60,6 @@ Visualize training and validation metrics:
 eeg_processor.plot_training_history(history)
 ```
 
-## File Structure
-```
-|-- eeg_signal_classification/
-    |-- preprocess.py       # Signal preprocessing functions
-    |-- model.py            # Neural network architecture
-    |-- train.py            # Training loop implementation
-    |-- inference.py        # Prediction methods
-    |-- utils.py            # Utility functions
-    |-- requirements.txt    # Dependencies
-```
-
 ## Example Workflow
 
 ```python
