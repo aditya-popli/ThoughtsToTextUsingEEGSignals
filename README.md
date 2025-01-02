@@ -1,105 +1,130 @@
-# EEG Signal Classification
+# Thoughts-to-Text Converter
 
-This repository contains an implementation of a neural network model for EEG signal classification. The system is designed to preprocess raw EEG data, train a model to recognize patterns, and predict the class of new EEG signals. 
+This project is an end-to-end pipeline for converting EEG signals into text using deep learning models. It comprises three main components:
+
+1. **EEG Data Generator**: Simulates EEG signals for a vocabulary of words.
+2. **EEG Processor**: Preprocesses signals, trains a model, and predicts text from signals.
+3. **GUI Interface**: Provides an interactive interface for users to generate datasets, train the model, and test predictions.
+
+---
 
 ## Features
-- **Signal Preprocessing**: Includes normalization, filtering, and preparation of raw EEG data.
-- **Customizable Neural Network**: Allows for flexible architecture design based on the number of target classes.
-- **Training and Validation**: Tracks loss and accuracy over multiple epochs.
-- **Inference with Confidence**: Predicts class labels and provides confidence scores.
-- **Model Persistence**: Save and load trained models for future use.
-- **Performance Visualization**: Plots training and validation metrics over epochs.
 
-## Installation
+- **Data Generation**: Simulates realistic EEG signals for a predefined vocabulary.
+- **Signal Processing**: Includes bandpass filtering and normalization.
+- **Deep Learning Model**: Uses an LSTM-based neural network for text prediction.
+- **GUI**: A user-friendly interface built with Tkinter for ease of interaction.
 
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/yourusername/eeg-signal-classification.git
-   cd eeg-signal-classification
-   ```
+---
 
-2. Install required dependencies:
-   ```bash
-   pip install -r requirements.txt
-   ```
+## File Structure
+
+### 1. `eeg_data_generator.py`
+
+Generates synthetic EEG datasets with labeled word indices.
+
+### 2. `eeg_processor.py`
+
+Processes EEG signals and trains an LSTM model for classification.
+
+### 3. `gui_interface.py`
+
+Provides a graphical user interface for dataset generation, model training, and testing.
+
+---
+
+## Prerequisites
+
+- Python 3.8+
+- Required Libraries:
+  - numpy
+  - pandas
+  - matplotlib
+  - scipy
+  - torch
+  - tkinter
+
+Install the dependencies using:
+
+```bash
+pip install numpy pandas matplotlib scipy torch
+```
+
+---
 
 ## Usage
 
-### 1. Preprocess Signals
-Raw EEG signals are preprocessed to ensure they are ready for training and prediction.
-```python
-processed_signal = eeg_processor.preprocess_signal(raw_signal)
-```
+### 1. Generate Dataset
+
+Run the GUI and click on the **Generate Dataset** button to create a synthetic EEG dataset.
 
 ### 2. Train the Model
-Train the model on your dataset with specified parameters.
-```python
-history = eeg_processor.train(X_train, y_train, epochs=50, batch_size=32, validation_split=0.2)
-```
 
-### 3. Make Predictions
-Use the trained model to predict the class of new EEG signals.
-```python
-predicted_class, confidence = eeg_processor.predict(new_signal, return_confidence=True)
-print(f"Predicted Class: {predicted_class}, Confidence: {confidence:.2f}")
-```
+After generating the dataset, click **Train Model** to train the LSTM-based model on the data.
 
-### 4. Save and Load Model
-Save the trained model:
-```python
-eeg_processor.save_model('model.pth')
-```
-Load a pre-trained model:
-```python
-eeg_processor.load_model('model.pth')
-```
+### 3. Test Prediction
 
-### 5. Plot Training History
-Visualize training and validation metrics:
-```python
-eeg_processor.plot_training_history(history)
-```
+Click **Test Prediction** to test the model’s ability to classify a random EEG signal from the dataset.
 
-## Example Workflow
+### 4. Run GUI
 
-```python
-from eeg_signal_classification import EEGProcessor
+To launch the GUI, execute:
 
-# Initialize processor
-processor = EEGProcessor(device='cuda')
-
-# Load data
-X_train, y_train = load_training_data()
-
-# Train the model
-history = processor.train(X_train, y_train, epochs=50, batch_size=32)
-
-# Save the model
-processor.save_model('eeg_model.pth')
-
-# Predict new signal
-signal = load_new_signal()
-prediction, confidence = processor.predict(signal, return_confidence=True)
-print(f"Class: {prediction}, Confidence: {confidence:.2f}")
-```
-
-## Requirements
-- Python 3.8+
-- PyTorch
-- NumPy
-- Matplotlib
-
-Install dependencies using the `requirements.txt` file:
 ```bash
-pip install -r requirements.txt
+python gui_interface.py
 ```
-
-## Contributing
-Feel free to fork this repository and submit pull requests. For major changes, please open an issue first to discuss what you would like to change.
-
-## Acknowledgements
-- The project is inspired by the challenges in EEG signal processing and classification.
-- Thanks to the open-source community for tools and frameworks that made this project possible.
 
 ---
-Developed with ❤️ by Aditya and contributors.
+
+## Example Output
+
+- **Training Accuracy and Loss**: Visualized during the training process.
+- **Prediction Results**: Displays predicted word, confidence level, and actual word in the GUI.
+
+---
+
+## Vocabulary
+
+The model supports the following vocabulary:
+
+- hello, world, thank, you, yes, no, goodbye, please, sorry, help
+- maybe, love, friend, happy, sad
+
+---
+
+## Model Architecture
+
+- **LSTM Layer**: Extracts temporal features from EEG sequences.
+- **Dropout Layer**: Prevents overfitting.
+- **Fully Connected Layer**: Maps features to vocabulary classes.
+
+---
+
+## How It Works
+
+1. **Data Simulation**:
+
+   - Generates synthetic EEG signals with unique patterns for each word.
+   - Adds noise and variations to mimic real-world data.
+
+2. **Signal Processing**:
+
+   - Applies normalization and bandpass filtering.
+
+3. **Model Training**:
+
+   - Trains an LSTM-based neural network to classify EEG signals into words.
+
+4. **Prediction**:
+
+   - Predicts the word and confidence score for a given EEG signal.
+
+---
+
+## Future Enhancements
+
+- Integration with real EEG hardware for live data input.
+- Expanding the vocabulary.
+- Experimenting with advanced neural network architectures like Transformers.
+
+---
